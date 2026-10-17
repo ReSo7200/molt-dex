@@ -164,6 +164,31 @@ scripts/secrets-sweep.sh work/myapp/decoded
 scripts/device-helpers.sh shot
 ```
 
+## Example: finding a feature in an obfuscated app
+
+Say you are modding your own copy of an app and want the method that decides whether a "download"
+button appears, but every class is named `X.0aB` and changes each release. You do not search for a
+name. You search for something stable the feature touches.
+
+```bash
+# 1. The feature's menu shows an internal label. Find who references that string.
+rg -F '"[INTERNAL] Pause Playback"' work/app/strings.tsv
+#    work/app/decoded/smali_classes3/X/05fU.smali   ...builds the option list
+
+# 2. In that class, the builder you want has a recognisable shape, not a name:
+#    returns a CharSequence[] (the menu entries). Read it in the decoded smali.
+rg -n 'CharSequence;' work/app/decoded/smali_classes3/X/05fU.smali
+
+# 3. Confirm on your own device: hook that method, log what it returns, append your row.
+#    (references/07-runtime-resolution-instrumentation.md: resolve with DexKit, hook with Xposed)
+```
+
+When the next version renames `X.05fU` to something else, step 1 finds it again by the same
+string. That is the whole point: **the anchor is the string and the shape, never the name.** The
+`03-static-understanding.md` page walks this end to end, including what to do when the method moves
+into a subclass between versions (you climb the superclass relationship and match the shape
+again).
+
 ## Layout
 
 ```
@@ -179,10 +204,26 @@ scripts/                                   acquire, string index, manifest, secr
 templates/                                 engagement-log.md, report.md
 ```
 
-## Install
+## Using it with Claude
 
-Copy this folder into your skills directory (for Claude Code, `~/.claude/skills/molt-dex/`, or a
-project's `.claude/skills/`), then invoke it by name.
+This repo **is** the skill (it has `SKILL.md` at its root), so there is nothing to build.
+
+- **For yourself or your team:** copy the folder into your skills directory and Claude picks it up.
+  - Claude Code: `~/.claude/skills/molt-dex/`, or a project's `.claude/skills/molt-dex/`.
+  - Then just ask for the work; Claude loads `SKILL.md` and follows the pipeline.
+- **To let others install it:** make the repo public and add a small plugin manifest, so people
+  can add it as a plugin marketplace in Claude Code and install it by name. The skill itself does
+  not change; it is only a packaging wrapper. (See the note below.)
+
+```bash
+# personal install, one line
+git clone https://github.com/ReSo7200/molt-dex.git ~/.claude/skills/molt-dex
+```
+
+> **Do you need to "add it to Claude's skills"?** No, not for your own use: a skill is just a
+> folder with a `SKILL.md`, and copying it in is the whole install. Anthropic's built-in catalog
+> is curated by Anthropic and is a separate thing. If you want one-command installs for other
+> people, the plugin-marketplace route above is the way, and it needs the repo to be public.
 
 ## License
 
