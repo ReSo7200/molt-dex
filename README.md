@@ -149,6 +149,10 @@ pipeline works by hand without them.
 | `secrets-sweep.sh` | ripgrep the decoded tree for keys, tokens, and cleartext endpoints |
 | `device-helpers.sh` | The adb + scrcpy loop: screenshot, UI dump, tap-by-text, logcat, app logs |
 
+Every script reads only the local path you give it. None reads your environment or credentials,
+and none makes a network connection, so nothing leaves your machine. `secrets-sweep.sh` searches
+the decoded *target* app for secrets; its patterns live in `secret-patterns.tsv` beside it.
+
 ## Quick start
 
 ```bash
