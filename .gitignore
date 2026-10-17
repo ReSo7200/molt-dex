@@ -1,0 +1,9 @@
+# analysis working dirs and artifacts never belong in the skill repo
+work/
+*.apk
+*.apkm
+*.xapk
+*.aab
+*.dex
+*.so
+out/
