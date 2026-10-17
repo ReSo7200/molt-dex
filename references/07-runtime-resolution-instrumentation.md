@@ -143,7 +143,7 @@ are identical either way.
 
 ## Frida: no-persistence instrumentation
 
-[Frida](https://frida.re/) attaches to a process and runs JavaScript to hook, trace, and dump,
+[Frida](https://github.com/frida/frida) attaches to a process and runs JavaScript to hook, trace, and dump,
 with nothing left installed. Good for:
 
 - Quick, exploratory tracing without building a module (`frida-trace`, interactive REPL).
