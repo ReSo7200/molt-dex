@@ -1,0 +1,15 @@
+{
+  "name": "molt-dex",
+  "owner": {
+    "name": "ReSo7200",
+    "url": "https://github.com/ReSo7200"
+  },
+  "description": "molt-DEX: an Android reverse engineering and modding skill, installable as a plugin.",
+  "plugins": [
+    {
+      "name": "molt-dex",
+      "source": ".",
+      "description": "Android reverse engineering and modding skill: apktool, adb, scrcpy, DexKit and the Xposed API, built around resolving obfuscated code by shape, not name."
+    }
+  ]
+}

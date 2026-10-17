@@ -211,19 +211,30 @@ This repo **is** the skill (it has `SKILL.md` at its root), so there is nothing 
 - **For yourself or your team:** copy the folder into your skills directory and Claude picks it up.
   - Claude Code: `~/.claude/skills/molt-dex/`, or a project's `.claude/skills/molt-dex/`.
   - Then just ask for the work; Claude loads `SKILL.md` and follows the pipeline.
-- **To let others install it:** make the repo public and add a small plugin manifest, so people
-  can add it as a plugin marketplace in Claude Code and install it by name. The skill itself does
-  not change; it is only a packaging wrapper. (See the note below.)
-
 ```bash
 # personal install, one line
 git clone https://github.com/ReSo7200/molt-dex.git ~/.claude/skills/molt-dex
 ```
 
+- **As an installable plugin:** this repo is also its own plugin marketplace (see
+  `.claude-plugin/`). On Claude Code 2.1.275 or later, one step:
+
+  ```
+  /plugin install molt-dex --marketplace ReSo7200/molt-dex
+  ```
+
+  or, on any version, two steps:
+
+  ```
+  /plugin marketplace add ReSo7200/molt-dex
+  /plugin install molt-dex@molt-dex
+  ```
+
 > **Do you need to "add it to Claude's skills"?** No, not for your own use: a skill is just a
-> folder with a `SKILL.md`, and copying it in is the whole install. Anthropic's built-in catalog
-> is curated by Anthropic and is a separate thing. If you want one-command installs for other
-> people, the plugin-marketplace route above is the way, and it needs the repo to be public.
+> folder with a `SKILL.md`, and copying it in is the whole install. Anthropic's built-in catalog is
+> curated by Anthropic and is a separate thing. The plugin-marketplace lines above are only for
+> handing it to other people. They fetch over GitHub, so the installing person needs access to the
+> repo: public for anyone, or a collaborator while it stays private.
 
 ## License
 
