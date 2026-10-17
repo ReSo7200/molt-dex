@@ -36,6 +36,11 @@ in authorized scope, hitting backends you do not own and are not authorized to t
 third-party credentials, or building something to harm others. Modding your own app on your own
 device is not any of these.
 
+This skill needs no credentials and reads none from the user's machine. Every mention of secrets,
+tokens, or keys below refers to *finding them inside the target app being analysed* (Stage D), not
+to collecting the user's own. There is nothing here to put behind a `user_config` option, because
+the skill asks the user for nothing sensitive.
+
 ## Core principles
 
 1. **Evidence over claims.** Every finding cites a smali file + method, a string-table hit, a
